@@ -1,0 +1,1 @@
+App(appid="hotline_miami", name="Hotline Miami", apptype=FlipperAppType.EXTERNAL, entry_point="hotline_main", requires=["gui"], stack_size=4096, fap_category="Games")
