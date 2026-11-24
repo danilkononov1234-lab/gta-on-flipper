@@ -5,7 +5,7 @@
 #include <stdlib.h>
 typedef struct {int x,y,alive;} Enemy;
 typedef struct {FuriMutex* lock; int x,y,dx,dy,stage,mode,score,weapon,ammo,mask,tick; bool held[4]; Enemy e[6];} Game;
-static bool wall(int x,int y){return x<3||x>124||y<13||y>60||((x>=39&&x<=42||x>=83&&x<=86)&& (y<29||y>42));}
+static bool wall(int x,int y){return x<3||x>124||y<13||y>60||(((x>=39&&x<=42)||(x>=83&&x<=86))&& (y<29||y>42));}
 static void reset(Game*g){g->x=12;g->y=35;g->dx=1;g->dy=0;g->ammo=8;g->weapon=0;g->tick=0;for(int i=0;i<6;i++){g->e[i]=(Enemy){55+(i%3)*28,19+(i/3)*34,1};}g->mode=1;}
 static void draw(Canvas*c,void*p){Game*g=p;furi_mutex_acquire(g->lock,FuriWaitForever);canvas_clear(c);canvas_set_font(c,FontSecondary);
 if(g->mode!=1){canvas_set_font(c,FontPrimary);canvas_draw_str(c,4,14,"HOTLINE MIAMI");canvas_set_font(c,FontSecondary);canvas_draw_str(c,4,29,g->mode==0?"OK: Start  Left/Right: Mask":g->mode==2?"Paused - OK: Resume":g->mode==3?"Wasted - OK: Retry":"Clear! OK: Next");canvas_draw_str(c,4,43,"Arrows: Move  OK: Attack");canvas_draw_str(c,4,56,"Hold OK: Weapon  Back: Menu");}
