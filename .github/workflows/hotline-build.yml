@@ -17,8 +17,15 @@ jobs:
           cp -r hotline_miami firmware/applications_user/
           cd firmware
           ./fbt fap_hotline_miami
+      - name: Collect FAP
+        run: |
+          mkdir -p artifacts
+          find firmware -type f -name hotline_miami.fap -print
+          fap="$(find firmware -type f -name hotline_miami.fap -print -quit)"
+          test -n "$fap"
+          cp "$fap" artifacts/hotline_miami.fap
       - uses: actions/upload-artifact@v4
         with:
           name: hotline-miami-momentum-012
-          path: firmware/**/hotline_miami.fap
+          path: artifacts/hotline_miami.fap
           if-no-files-found: error
