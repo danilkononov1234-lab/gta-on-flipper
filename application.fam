@@ -1,0 +1,9 @@
+App(
+    appid="gta_flipper",
+    name="GTA Vice City",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="gta_flipper_app",
+    stack_size=2 * 1024,
+    fap_category="Games",
+    requires=["gui"],
+)
