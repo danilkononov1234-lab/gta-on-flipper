@@ -1,0 +1,22 @@
+name: Terraria FAP
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'terraria/**'
+      - '.github/workflows/terraria.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install ufbt
+      - run: ufbt update --index-url https://up.momentum-fw.dev/firmware/directory.json --channel release
+      - run: cd terraria && ufbt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Terraria
+          path: terraria/dist/*.fap
